@@ -14,7 +14,7 @@ pipeline {
    }
 
     stages {
-        stage('Pull Code') {
+        stage('Pulling Application Code') {
             steps {
                 git 'https://github.com/AhasanSysAdm/mern-app.git'
             }
@@ -73,18 +73,30 @@ pipeline {
                   '''
             }
         }
+
+        stage('Pulling Deployment Codes') {
+            steps {
+                git 'https://github.com/AhasanSysAdm/mern-app.git'
+            }
+        }
+
         stage('EKS-Update') {
             steps {
                script{
+                    dir("terraform"){
                     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'awsp',usernameVariable: 'ACCESSKEY', passwordVariable: 'SECRETKEY']]){
                         
                         sh '''
-                            bash $SCRIPT_PATH/ecs-update.sh $ACCESSKEY $SECRETKEY $AWS_REGION $CLUSTER $SERVICE_NAME $ECR_REPO $IMAGE_NAME $TAG $ENV_PATH $LOG_GROUP $CPU $RAM
+                            git 'https://github.com/AhasanSysAdm/pipesanddeployments.git'
+                            export AWS_ACCESS_KEY_ID=$ACCESSKEY
+                            export AWS_SECRET_ACCESS_KEY=$SECRETKEY
+                            export AWS_DEFAULT_REGION=$AWS_REGION
                             bash ${SCRIPT_PATH}/ecrbuildnumscript.sh'
-                            buildtemp = readFile 'outFile_batchupdate_ml'
+                            buildtemp = readFile 'outFile_k8simagedeploy'
                             echo "The image is ${buildtemp}"
                         '''
                     }
+                  }
                 }
             }
         }
