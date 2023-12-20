@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+    containers:
+    - name: my-frontend
+      image: ahasankhansysadm/ahasancustom:my-frontend1-tag
+      ports:
+      - containerPort: 3000 # Container port
+      env:
+      - name: REACT_APP_YOUR_HOSTNAME
+        valueFrom:
+          configMapKeyRef:
+            name: backend-url-config # ConfigMap name
+            key: REACT_APP_YOUR_HOSTNAME # Key in the ConfigMap
