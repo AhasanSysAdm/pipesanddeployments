@@ -1,0 +1,9 @@
+apiVersion: v2
+name: mymernappbackend
+description: A Helm chart for Kubernetes
+version: 0.1.0
+dependencies:
+- name: mymernapp
+  version: 1.0.0 # Specify the version of the backend-chart
+  repository: "file://../dry/Chart.yaml"
+icon: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png

@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: backend-url-config
-data:
-  REACT_APP_YOUR_HOSTNAME: "http://backend-service:5000"  # Replace with the actual service name

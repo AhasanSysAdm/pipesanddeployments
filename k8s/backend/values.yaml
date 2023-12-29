@@ -1,0 +1,12 @@
+# backend-chart/values.yaml
+replicaCount: 1
+
+image:
+  repository: ahasankhansysadm/ahasancustommern 
+  tag: my-backend-20
+
+containerPort: 5000
+service:
+  port: 5000
+  targetPort: 5000
+  type: ClusterIP

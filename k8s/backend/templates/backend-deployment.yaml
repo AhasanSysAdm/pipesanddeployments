@@ -1,33 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: backend-deployment
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: frontend
+      app: backend
   template:
     metadata:
       labels:
-        app: frontend
+        app: backend
     spec:
       containers:
-      - name: my-frontend
+      - name: my-backend
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
         - containerPort: {{ .Values.containerPort }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: backend-service
 spec:
   selector:
-    app: frontend
+    app: backend
   ports:
-  - name: openfrontend
+  - name: openbackend
     port: {{ .Values.service.port }}
     protocol: TCP
     targetPort: {{ .Values.service.targetPort }}
   type: {{ .Values.service.type }}
-  sessionAffinity: {{ .Values.service.sessionAffinity }}

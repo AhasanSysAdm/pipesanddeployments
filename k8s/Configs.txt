@@ -1,0 +1,25 @@
+1. Linting:
+Use the helm lint command to check your Helm charts for issues. It performs a static analysis of your charts and identifies potential problems.
+
+helm lint mymernapp
+helm lint mymernappbackend
+
+
+2. Template Rendering:
+Render your Helm charts to see how they would look when applied. This helps catch issues with template rendering and allows you to inspect the generated Kubernetes manifests.
+
+helm template my-release-test1 path/to/your/chart
+
+helm template my-release-testf1 mymernapp
+helm template my-release-testb1 mymernappbackend
+
+3. Dry Run:
+Perform a dry run of the installation to ensure that the Helm chart can be applied without actually deploying it.
+
+helm install --dry-run --debug my-release mymernapp
+helm install --dry-run --debug my-release mymernappbackend
+
+
+helm install my-frontend-release1 mymernapp -f mymernapp/values-frontend.yaml
+
+helm install my-backend-release1 mymernappbackend -f mymernappbackend/values-backend.yaml

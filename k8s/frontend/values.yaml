@@ -1,0 +1,18 @@
+# frontend-chart/values.yaml
+replicaCount: 1
+
+image:
+  repository: ahasankhansysadm/ahasancustommern
+  tag: my-frontend-20
+
+containerPort: 3000
+
+configMap:
+  name: backend-url-config
+  key: REACT_APP_YOUR_HOSTNAME
+# frontend-chart/values.yaml
+service:
+  port: 80
+  targetPort: 3000
+  type: ClusterIP
+  sessionAffinity: ClientIP
